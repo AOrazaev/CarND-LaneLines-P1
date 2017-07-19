@@ -21,7 +21,7 @@ I additionally use previously detected lines by adding current traind line to pr
 
 Here is some results:
 
-[result]: ./test_images_output/all_test_images.png "Results for test images"
+<img src="test_images_output/all_test_images.png" width="480" alt="Combined Image" />
 
 I achived "good enough" result on the challenge video by using idea with momentum and better region filtering.
 It's kind of hacky, but I filtered lots of points on the road to achive robust results with shadows and differently

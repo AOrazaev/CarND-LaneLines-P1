@@ -1,47 +1,37 @@
 # **Finding Lane Lines on the Road** 
 
-## Writeup Template
+## Goals
 
-### You can use this file as a template for your writeup if you want to submit it as a markdown file. But feel free to use some other method and submit a pdf if you prefer.
+Write simple algorithm which detects driving lanes on the video.
 
----
+## Approach I used
 
-**Finding Lane Lines on the Road**
+In this work I applied operation to input image in this order:
+1. Gaussian blur
+2. Canny edge detection
+3. Hough lines detection
+4. Filtered region of interest
+5. Run linear regression on the detected lines on the left/right sides
+6. For video I used momentum to achive more stable and smooth transition between pictures
 
-The goals / steps of this project are the following:
-* Make a pipeline that finds lane lines on the road
-* Reflect on your work in a written report
+In the end I draw 2 lines I trained using linear regression on step 5 (for images). For video
+I additionally use previously detected lines by adding current traind line to previous with coefficients.
 
+## Results
 
-[//]: # (Image References)
+Here is some results:
 
-[image1]: ./examples/grayscale.jpg "Grayscale"
+[result]: ./test_images_output/all_test_images.png "Results for test images"
 
----
-
-### Reflection
-
-### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
-
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
-
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
-
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
-
-![alt text][image1]
+I achived "good enough" result on the challenge video by using idea with momentum and better region filtering.
+It's kind of hacky, but I filtered lots of points on the road to achive robust results with shadows and differently
+collored pavements.
 
 
-### 2. Identify potential shortcomings with your current pipeline
+### Suggest possible improvements to described pipeline
 
+It's possible to run logisit regression with nonlinear features to achive good results on turns. But it would be
+much harder, because detected lines would be less stable than current.
 
-One potential shortcoming would be what would happen when ... 
-
-Another shortcoming could be ...
-
-
-### 3. Suggest possible improvements to your pipeline
-
-A possible improvement would be to ...
-
-Another potential improvement could be to ...
+Also I haven't used color filtering at all. And I belive some smart color normalization will be less hacky solution, than
+I did with filtering pavement in front of the car in the challenge video.
